@@ -77,7 +77,7 @@ if (isset($_GET['act']) && $_GET['act']) {
         case 'listsp':
 
             $per_page = 3;
-            $num = soluong_theloai();
+            $num = soluong_sanpham();
             $max_page = ceil($num / $per_page);
             $page = $_GET['page'];
             $start = ($page - 1) * $per_page;
