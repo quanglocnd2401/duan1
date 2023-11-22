@@ -5,8 +5,16 @@
                 <h6 class="m-0">Danh mục</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
+           
+            <nav class="
+            <?php if(!isset($_GET['act'])){
 
-            <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
+                echo 'collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0';
+            }
+            else{
+                echo 'collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light';
+            } ?>
+            " id="navbar-vertical">
                 <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
 
                     <?php
@@ -14,7 +22,7 @@
                     foreach ($listtheloai as $theloai) {
                         extract($theloai);
                     ?>
-                    <a href="" class="nav-item nav-link"><?php echo $name; ?></a>
+                    <a href="index.php?act=danhmuc" class="nav-item nav-link"><?php echo $name; ?></a>
                     <?php
                     }
                     ?>
@@ -47,9 +55,18 @@
                     </div>
                     <?php
                     if (isset($_SESSION['loged'])) {
+                        if($_SESSION['role']==1){
                     ?>
-                        <p>Chào bạn, <?php if (isset($_SESSION['username'])) echo $_SESSION['username']; ?></p>
+                        <a href="admin/index.php" class="nav-item nav-link">Admin</a>
+                    <?php
+
+                        }
+                    ?>  
+                        
                         <a href="index.php?act=dangxuat" class="nav-item nav-link">Đăng xuất</a>
+                        <p>Chào bạn, <?php if (isset($_SESSION['username'])) echo $_SESSION['username']; ?></p>
+                    
+
                     <?php
                     } else {
                     ?>
@@ -65,6 +82,9 @@
 
                 </div>
             </nav>
+            <?php
+            if(!isset($_GET['act'])){
+            ?>
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" style="height: 410px;">
@@ -99,6 +119,10 @@
                     </div>
                 </a>
             </div>
+            <?php
+            }
+            ?>
+            
         </div>
     </div>
 </div>

@@ -22,13 +22,13 @@ function xoa_danhmuc($index){
     pdo_execute($sql);
 }
 
-function add_danhmuc($name){
-    $sql = "INSERT INTO `theloai` ( `name`, `xoa`) VALUES ( '$name', b'0')";
+function add_danhmuc($name,$img){
+    $sql = "INSERT INTO `theloai` ( `name`,`img`,`xoa`) VALUES ( '$name','$img', b'0')";
     pdo_execute($sql);
 }
 
-function uppdate_danhmuc($id,$name){
-    $sql = "UPDATE `theloai` SET `name` = '$name' WHERE `theloai`.`id_theloai` = $id";
+function uppdate_danhmuc($id,$name,$img){
+    $sql = "UPDATE `theloai` SET `name` = '$name',`img` = '$img' WHERE `theloai`.`id_theloai` = $id";
     pdo_execute($sql);
 }
 function soluong_theloai(){

@@ -5,6 +5,7 @@ include_once("../model/danhmuc.php");
 include_once("../model/sanpham.php");
 include_once("../model/tacgia.php");
 include_once("../model/nhaxuatban.php");
+include_once("../model/user.php");
 include_once("header.php");
 
 
@@ -35,7 +36,11 @@ if (isset($_GET['act']) && $_GET['act']) {
         case 'addtheloai':
             if (isset($_POST['add']) && $_POST['add']) {
                 $name = $_POST['addtheloai'];
-                add_danhmuc($name);
+                $img = $_FILES['img']['name'];
+                $targer_dir = "../img/";
+                $target_file = $targer_dir . basename($_FILES['img']['name']);
+                move_uploaded_file($_FILES['img']['tmp_name'],$target_file);
+                add_danhmuc($name,$img);
                 $per_page = 3;
                 $listdm = load_all_danhmuc(0, $per_page);
                 header("Location: index.php?act=listtheloai&page=1");
@@ -55,7 +60,12 @@ if (isset($_GET['act']) && $_GET['act']) {
             if (isset($_POST['update']) && $_POST['update']) {
                 $id = $_POST['id'];
                 $name = $_POST['name'];
-                uppdate_danhmuc($id, $name);
+                $img = $_FILES['imgtheloai']['name'];
+                $targer_dir = "../img/";
+                $target_file = $targer_dir . basename($_FILES['img']['name']);
+                move_uploaded_file($_FILES['img']['tmp_name'],$target_file);
+                
+                uppdate_danhmuc($id, $name,$img);
             }
 
             header("Location: index.php?act=listtheloai&page=1");
@@ -91,23 +101,31 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $id = $_GET['id'];
                 xoa_sanpham($id);
             }
-            $listsp = load_all_sanpham();
-            require_once('sanpham/listsp.php');
+            header("Location: index.php?act=listsp");
             break;
         case 'addsp':
             if (isset($_POST['addsp']) && $_POST['addsp']) {
                 $tensach = $_POST['tensach'];
+                
                 $tacgia = $_POST['tacgia'];
                 $nhaxuatban = $_POST['nhaxuatban'];
                 $date = $_POST['ngayxuatban'];
                 $price = $_POST['gia'];
-                $soluong = $_POST['soluong'];
+
+                $img = $_FILES['img']['name'];
+                $targer_dir = "../img/";
+                $target_file = $targer_dir . basename($_FILES['img']['name']);
+                if(move_uploaded_file($_FILES['img']['tmp_name'],$target_file)){
+                    echo "up thanh cong";
+                }else{
+                    echo "up khong thanh cong";
+                }
+                
                 $theloai = $_POST['theloai'];
 
-                add_sanpham($tensach, $tacgia, $nhaxuatban, $date, $price, $soluong, $theloai);
+                add_sanpham($tensach,$img, $tacgia, $nhaxuatban, $date, $price, $theloai);
 
-                $listsp = load_all_sanpham();
-                require_once('sanpham/listsp.php');
+                header("Location: index.php?act=listsp&page=1");
             } else {
                 $theloai = load_all_danhmuc("", "");
                 $tacgia = select_tacgia();
@@ -128,7 +146,7 @@ if (isset($_GET['act']) && $_GET['act']) {
             if (isset($_POST['update']) && $_POST['update']) {
                 $id = $_POST['id'];
                 $name = $_POST['name'];
-                uppdate_danhmuc($id, $name);
+                uppdate_sanpham($id, $name);
             }
             $listdm = load_all_sanpham();
             require_once('danhmuc/listdanhmuc.php');
@@ -140,7 +158,10 @@ if (isset($_GET['act']) && $_GET['act']) {
                 require_once('danhmuc/listdanhmuc.php');
             }
             break;
-
+        case 'listuser':
+            $listuser =  load_all_user();
+            require_once('user/listuser.php');
+            break;
 
 
         default:

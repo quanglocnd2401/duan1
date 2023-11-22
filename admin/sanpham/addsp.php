@@ -26,7 +26,7 @@
 <?php ?>
 <div class="details">
     <div class="recentOrders">
-        <form class="add" action="index.php?act=addsp" method="POST">
+        <form class="add" action="index.php?act=addsp" method="POST" enctype="multipart/form-data">
             <label for="addtheloai">Tên Sách</label>
             <input type="text" name="tensach" required>
             <label for="addtheloai">Tác giả</label>
@@ -54,6 +54,8 @@
           
             <label for="addtheloai">Ngày xuất bản</label>
             <input type="text" name="ngayxuatban" required>
+            <label for="addtheloai">Ảnh</label>
+            <input type="file" name="img" required>
             <label for="addtheloai">Giá</label>
             <input type="text" name="gia" required>
             <label for="addtheloai">Số lượng</label>

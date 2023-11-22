@@ -25,9 +25,11 @@
 </style>
 <div class="details">
     <div class="recentOrders">
-        <form class="addtheloai" action="index.php?act=addtheloai" method="POST">
+        <form class="addtheloai" action="index.php?act=addtheloai" method="POST" enctype="multipart/form-data">
             <label for="addtheloai">Tên Thể loại</label>
             <input type="text" name="addtheloai" required>
+            <label for="addtheloai">Ảnh</label>
+            <input type="file" name="img" required>
             <input value="Thêm" name="add" type="submit">
         </form>
     </div>

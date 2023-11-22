@@ -11,5 +11,11 @@ function check_login($username , $password){
     return $user;
 }
 
+function load_all_user(){
+    $sql = "SELECT * FROM `user` WHERE 1";
+    $listuser = pdo_query($sql);
+    return $listuser;
+}
+
 
 ?>

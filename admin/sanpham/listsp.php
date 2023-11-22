@@ -26,6 +26,7 @@
                 <tr>
                     <td>ID</td>
                     <td>Tên Sách</td>
+                    <td>Ảnh</td>
                     <td>Thể loại</td>
                     <td>Ngày Xuất Bản</td>
                     <td>Giá</td>
@@ -35,15 +36,17 @@
             </thead>
 
             <tbody>
-
+      
                 <?php foreach ($listsp as $sp) {
                     extract($sp);
+                    $anh = '<img width="200px" src="../img/'.$img.'" alt="">';
                     $xoasp = "index.php?act=xoasp&id=" . $id_book;
                     $suasp = "index.php?act=suasp&id=" . $id_book;
                     echo '
                             <tr>
                             <td>' . $id_book . '</td>
                             <td>' . $tieude . '</td>
+                            <td>' . $anh . '</td>
                             <td>' . $name . '</td>
                             <td>' . $ngayxuatban . '</td>
                             <td>' . $price . '</td>
