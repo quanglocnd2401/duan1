@@ -1,10 +1,12 @@
 <?php
-
+session_start();
 include_once("../model/pdo.php");
 include_once("../model/danhmuc.php");
 include_once("../model/sanpham.php");
 include_once("../model/tacgia.php");
 include_once("../model/nhaxuatban.php");
+include_once("../model/binhluan.php");
+include_once("../model/thongke.php");
 include_once("../model/user.php");
 include_once("header.php");
 
@@ -13,7 +15,6 @@ if (isset($_GET['act']) && $_GET['act']) {
     $act = $_GET['act'];
     switch ($act) {
         case 'listtheloai':
-
             $per_page = 3;
             $num = soluong_theloai();
             $max_page = ceil($num / $per_page);
@@ -62,8 +63,12 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $name = $_POST['name'];
                 $img = $_FILES['imgtheloai']['name'];
                 $targer_dir = "../img/";
-                $target_file = $targer_dir . basename($_FILES['img']['name']);
-                move_uploaded_file($_FILES['img']['tmp_name'],$target_file);
+                $target_file = $targer_dir . basename($_FILES['imgtheloai']['name']);
+                if(move_uploaded_file($_FILES['imgtheloai']['tmp_name'],$target_file)){
+                    echo "up thanh cong";
+                }else{
+                    echo "up khong thanh cong";
+                }
                 
                 uppdate_danhmuc($id, $name,$img);
             }
@@ -86,13 +91,13 @@ if (isset($_GET['act']) && $_GET['act']) {
 
         case 'listsp':
 
-            $per_page = 3;
+            $per_page = 4;
             $num = soluong_sanpham();
             $max_page = ceil($num / $per_page);
             $page = $_GET['page'];
             $start = ($page - 1) * $per_page;
             
-            $listsp = load_all_sanpham();
+            $listsp = load_all_sanpham($start,$per_page,"");
             require_once('sanpham/listsp.php');
             break;
 
@@ -106,12 +111,11 @@ if (isset($_GET['act']) && $_GET['act']) {
         case 'addsp':
             if (isset($_POST['addsp']) && $_POST['addsp']) {
                 $tensach = $_POST['tensach'];
-                
                 $tacgia = $_POST['tacgia'];
                 $nhaxuatban = $_POST['nhaxuatban'];
                 $date = $_POST['ngayxuatban'];
                 $price = $_POST['gia'];
-
+                $soluong = $_POST['soluong'];
                 $img = $_FILES['img']['name'];
                 $targer_dir = "../img/";
                 $target_file = $targer_dir . basename($_FILES['img']['name']);
@@ -120,15 +124,18 @@ if (isset($_GET['act']) && $_GET['act']) {
                 }else{
                     echo "up khong thanh cong";
                 }
-                
                 $theloai = $_POST['theloai'];
-
                 add_sanpham($tensach,$img, $tacgia, $nhaxuatban, $date, $price, $theloai);
+                $sanphams = load_new_sanpham();
+                extract($sanphams);
+                
+                add_chitiet_sanpham($id_book,$soluong);
+                
 
                 header("Location: index.php?act=listsp&page=1");
             } else {
                 $theloai = load_all_danhmuc("", "");
-                $tacgia = select_tacgia();
+                $tacgia = load_all_tacgia();
                 $nhaxuatban = select_nhaxuatban();
 
                 require_once('sanpham/addsp.php');
@@ -138,32 +145,69 @@ if (isset($_GET['act']) && $_GET['act']) {
         case 'suasp':
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id = $_GET['id'];
-                $onedanhmuc = load_one_sanpham($id);
-                require_once('danhmuc/update.php');
+                $onesanpham = load_one_sanpham($id);
+                require_once('sanpham/updatesp.php');
             }
             break;
         case 'updatesp':
             if (isset($_POST['update']) && $_POST['update']) {
-                $id = $_POST['id'];
+                $id_book = $_POST['id'];
                 $name = $_POST['name'];
-                uppdate_sanpham($id, $name);
+                $tacgia = $_POST['tacgia'];
+                $theloai = $_POST['theloai'];
+                $ngayxuatban = $_POST['ngayxuatban'];
+                $gia = $_POST['price'];
+                $soluong = $_POST['soluong'];
+
+                $img = $_FILES['img']['name'];
+
+                $targer_dir = "../img/";
+                $target_file = $targer_dir . basename($_FILES['img']['name']);
+                if(move_uploaded_file($_FILES['img']['tmp_name'],$target_file)){
+                    echo "up thanh cong";
+                }else{
+                    echo "up khong thanh cong";
+                }
+                
+                uppdate_sanpham($id_book,$img, $name,$tacgia,$theloai,$ngayxuatban, $gia, $soluong);
+
             }
-            $listdm = load_all_sanpham();
-            require_once('danhmuc/listdanhmuc.php');
+            $listdm = load_all_sanpham("","","");
+            header("Location:index.php?act=listsp&page=1");
             break;
         case 'searchsp':
             if (isset($_POST['search']) && $_POST['search']) {
                 $keyword = $_POST['keyword'];
-                $listdm = load_all_sanpham();
-                require_once('danhmuc/listdanhmuc.php');
+                $listdm = load_all_sanpham("","","");
+                require_once('danhmuc/listsp.php');
             }
             break;
         case 'listuser':
             $listuser =  load_all_user();
             require_once('user/listuser.php');
             break;
-
-
+        case 'xoauser':
+            if(isset($_GET['id'])&& $_GET['id']> 0){
+                $id_user = $_GET['id'];
+                xoa_user($id_user);
+            }
+            header("Location:index.php?act=listuser");
+            break;
+        case 'listbinhluan':
+            $listuser =  load_all_binhluan("");
+            require_once('binhluan/listbl.php');
+            break;
+        case 'xoabl':
+            if(isset($_GET['id'])&& $_GET['id']> 0){
+                $id_binhluan = $_GET['id'];
+                xoa_binhluan($id_binhluan);
+            }
+            header("Location:index.php?act=listbinhluan");
+            break;
+        case 'thongke':
+            $listthongke = thongke_binhluan();
+            require_once "thongke/thongkebinhluan.php";
+            break;
         default:
             include_once('home.php');
             break;

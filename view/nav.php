@@ -22,7 +22,7 @@
                     foreach ($listtheloai as $theloai) {
                         extract($theloai);
                     ?>
-                    <a href="index.php?act=danhmuc" class="nav-item nav-link"><?php echo $name; ?></a>
+                    <a href="index.php?act=shop&page=1&idtheloai=<?= $id_theloai ?>" class="nav-item nav-link"><?php echo $name; ?></a>
                     <?php
                     }
                     ?>
@@ -41,7 +41,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="index.php" class="nav-item nav-link active">Home</a>
                         <a href="index.php?act=shop" class="nav-item nav-link">Shop</a>
                         <a href="index.php?act=shopdetail" class="nav-item nav-link">Shop Detail</a>
                         <div class="nav-item dropdown">
@@ -55,7 +55,7 @@
                     </div>
                     <?php
                     if (isset($_SESSION['loged'])) {
-                        if($_SESSION['role']==1){
+                        if($_SESSION['user']['role']==1){
                     ?>
                         <a href="admin/index.php" class="nav-item nav-link">Admin</a>
                     <?php
@@ -64,7 +64,7 @@
                     ?>  
                         
                         <a href="index.php?act=dangxuat" class="nav-item nav-link">Đăng xuất</a>
-                        <p>Chào bạn, <?php if (isset($_SESSION['username'])) echo $_SESSION['username']; ?></p>
+                        <p>Chào bạn, <?php if (isset($_SESSION['user']['username'])) echo $_SESSION['user']['username']; ?></p>
                     
 
                     <?php

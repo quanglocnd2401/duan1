@@ -11,6 +11,13 @@ function load_all_danhmuc($start,$per_page){
     $listdanhmuc = pdo_query($sql);
     return $listdanhmuc;
 }
+function load_6_danhmuc(){
+    $sql = "SELECT * FROM `theloai` WHERE 1 order by id_theloai limit 0,6" ;
+
+
+    $listdanhmuc = pdo_query($sql);
+    return $listdanhmuc;
+}
 
 function load_one_danhmuc($id){
     $sql = "SELECT * FROM `theloai` WHERE xoa = 0 AND id_theloai=".$id;
@@ -23,7 +30,7 @@ function xoa_danhmuc($index){
 }
 
 function add_danhmuc($name,$img){
-    $sql = "INSERT INTO `theloai` ( `name`,`img`,`xoa`) VALUES ( '$name','$img', b'0')";
+    $sql = "INSERT INTO `theloai` ( `name`,`imgtheloai`,`xoa`) VALUES ( '$name','$img', b'0')";
     pdo_execute($sql);
 }
 
@@ -41,5 +48,4 @@ function search_item($name,$kyw){
     $listsearch = pdo_query($sql);
     return $listsearch;
 }
-
 ?>

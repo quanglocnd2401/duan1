@@ -11,6 +11,7 @@ ob_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
     <link rel="stylesheet" href="../css/admin1.css">
+    
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
@@ -47,11 +48,11 @@ ob_start();
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="index.php?act=listbinhluan">
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>
-                        <span class="title">Messages</span>
+                        <span class="title">Comment</span>
                     </a>
                 </li>
 
@@ -102,8 +103,9 @@ ob_start();
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <?php $num = soluong_sanpham();?>
+                        <div class="numbers"><?= $num ?></div>
+                        <div class="cardName">Number Product</div>
                     </div>
 
                     <div class="iconBx">
@@ -124,8 +126,9 @@ ob_start();
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
+                    <?php $numbl = soluong_binhluan();?>
+                        <div class="numbers"><?= $numbl ?></div>
+                        <div class="cardName"> <a href="index.php?act=thongke">  Comments </a> </div>
                     </div>
 
                     <div class="iconBx">

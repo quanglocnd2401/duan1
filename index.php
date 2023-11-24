@@ -3,13 +3,16 @@ ob_start();
 session_start();
 include_once("model/pdo.php");
 include_once("view/header.php");
+require_once 'model/binhluan.php';
 include_once("model/user.php");
 include_once("model/danhmuc.php");
 include_once("model/sanpham.php");
+
 include_once("view/nav.php");
 if (isset($_GET['act']) && $_GET['act']) {
     $act = $_GET['act'];
     switch ($act) {
+
         case 'login':
             if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
                 $username = $_POST['username_login'];
@@ -18,8 +21,9 @@ if (isset($_GET['act']) && $_GET['act']) {
 
                 if (is_array($user)) {
                     $_SESSION['loged'] = true;
-                    $_SESSION['username'] = $user['username'];
-                    $_SESSION['role'] = $user['role'];
+                    $_SESSION['user'] = $user;
+
+
                     header('Location: index.php');
                     setcookie('loged', 'Đăng nhập thành công', time() + 1, '/');
                 } else {
@@ -32,26 +36,39 @@ if (isset($_GET['act']) && $_GET['act']) {
             break;
 
         case 'register':
-            if (isset($_POST['dangki']) && $_POST['dangki']) {
-                $username = $_POST['username'];
-                $pass1 = $_POST['pass1'];
-                $pass2 = $_POST['pass2'];
-                $email = $_POST['email'];
-                if ($pass1 != $pass2) {
-                    header('Location: index.php?act=register');
-                    setcookie('error', 'Đăng kí không thành công', time() + 10, '/');
-                } else {
-                    dang_ki($username, $password, $email);
-                    header('Location: index.php?act=register');
-                    setcookie('registed', 'Đăng kí thành công', time() + 10, '/');
-                }
 
-                header("Location: index.php?act=login");
-            }
             include_once("view/register.php");
             break;
 
         case 'shop':
+            if (isset($_POST['filter']) && $_POST['filter']) {
+            
+                $gia1 = $_POST['gia1'];
+                $gia2 = $_POST['gia2'];
+                $per_page = 6;
+                $num = soluong_sanpham();
+                $max_page = ceil($num / $per_page);
+                $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+                $start = ($page - 1) * $per_page;
+                $sanphams =  load_sanpham_theo_gia($start, $per_page, $gia1, $gia2);
+            }
+            else if(isset($_GET['idtheloai']) && $_GET['idtheloai'] > 0){
+
+                $id_theloai = $_GET['idtheloai'];
+                $sanphams = load_all_sanpham("", "",$id_theloai);
+                
+            }
+            
+            else {
+                $per_page = 6;
+                $num = soluong_sanpham();
+                $max_page = ceil($num / $per_page);
+                $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+                $start = ($page - 1) * $per_page;
+
+                $sanphams = load_all_sanpham($start, $per_page,"");
+            }
+
             include_once("view/shop.php");
             break;
 
@@ -60,23 +77,23 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $id = $_GET['id'];
                 $sanpham = load_one_sanpham($id);
                 extract($sanpham);
-                require 'view/detail.php';
+
+                $sanphamlienquan = load_sanpham_lienquan($id_book, $id_theloai);
+                require_once 'view/detail.php';
             } else {
                 require 'view/home.php';
             }
             break;
 
 
+        // case 'danhmuc':
+        //     if (isset($_GET['id']) && $_GET['id'] > 0) {
 
-        case 'danhmuc':
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                $id = $_GET['id'];
-                $sanpham = load_theloai_sanpham($id);
-                extract($sanpham);
-                require 'view/detail.php';
-            }
-            require_once('view/danhmuc.php');
-            break;
+        //         $danhmucsp = load_all_sanpham("", "");
+        //         require 'view/danhmuc.php';
+        //     }
+        //     require_once('view/danhmuc.php');
+        //     break;
 
         case 'dangxuat':
             session_unset();
@@ -84,11 +101,26 @@ if (isset($_GET['act']) && $_GET['act']) {
             break;
 
         default:
-            include_once("view/home.php");
+            $per_page = 8;
+            $num = soluong_sanpham();
+            $max_page = ceil($num / $per_page);
+            $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+            $start = ($page - 1) * $per_page;
+
+            $listsp = load_all_sanpham($start, $per_page,"");
+            include("view/home.php");
+
+
             break;
     }
 } else {
-    include_once("view/home.php");
+    $per_page = 8;
+    $num = soluong_sanpham();
+    $max_page = ceil($num / $per_page);
+    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+    $start = ($page - 1) * $per_page;
+    $listsp = load_all_sanpham($start, $per_page,"");
+    include("view/home.php");
 }
 
 include_once("view/footer.php");
