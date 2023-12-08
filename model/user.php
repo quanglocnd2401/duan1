@@ -27,6 +27,23 @@ function load_all_user(){
     $listuser = pdo_query($sql);
     return $listuser;
 }
+function load_one_user($id){
+    $sql = "SELECT * FROM `user` WHERE xoauser = 0 AND id_user = $id";
+    $user = pdo_query_one($sql);
+    return $user;
+}
+
+
+function rand_string($length){
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIKLMNOPQRSTUVWXYZ0123456789"; 
+    $size = strlen($chars); // trả về số chuỗi ; 100
+    $str = '';
+    for($i = 0;$i < $length;$i++){
+        $str .= $chars[rand(0,$size-1)]; 
+    }
+    
+    return $str;
+}
 
 
 ?>

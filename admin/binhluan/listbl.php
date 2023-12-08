@@ -27,19 +27,15 @@
         <table>
             <thead>
                 <tr>
-                    <td>ID</td>
                     <td>Sách</td>
                     <td>User</td>
-                    <td>User</td>
+                    <td>Nội dung</td>
                     <td>Date</td>
                     <td>Chức năng</td>
                 </tr>
             </thead>
-
             <tbody>
-                
                 <?php
-                
 
                 $id = 1;
                 $listbinhluan = load_all_binhluan("");
@@ -47,15 +43,13 @@
 
                     extract($bl);
                     $xoabl = "index.php?act=xoabl&id=" . $id_binhluan;
-                    
                     echo '
                             <tr>
-                            <td>' . $id_binhluan . '</td>
                             <td>' . $id_book . '</td>
                             <td>' . $id_user . '</td>
                             <td>' . $noidung . '</td>
                             <td>' . $ngaydang . '</td>
-                            <td><a class="btn-admin" href="' . $xoabl . '">delete</a>
+                            <td><a class="btn-admin" href="' . $xoabl . '">Xóa</a>
                                 
                                 </td>  
                             </tr>

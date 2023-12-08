@@ -20,7 +20,6 @@
             <h2>Recent Orders</h2>
             <a href="index.php?act=addsp" class="btn">Thêm</a>
         </div>
-
         <table>
             <thead>
                 <tr>
@@ -55,8 +54,8 @@
                             <td>' . $ngayxuatban . '</td>
                             <td>' . $price . '</td>
                             <td>' . $soluong . '</td>
-                            <td><a class="btn-admin" href="' . $xoasp . '">delete</a>
-                                <a class="btn-admin" href="' . $suasp . '">edit</a>
+                            <td><a class="btn-admin" href="' . $xoasp . '">Xóa</a><a class="btn-admin" href="' . $suasp . '">Sửa</a>
+                                
                                 
                                 </td>
                             
@@ -79,7 +78,7 @@
                                 << </a></button>
                     <?php endif; ?>
 
-                    <?php for ($i = 1; $i <= $max_page; $i++) : ?>
+                    <?php for ($i = 1; $i <= $max_page-1; $i++) : ?>
 
 
                         <button class="<?php echo ($page == $i) ? 'active' : ''; ?>"><a href="index.php?act=listsp&page=<?= $i ?>"> <?= $i ?> </a></button>

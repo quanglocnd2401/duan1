@@ -56,7 +56,7 @@
                         $xoauser = "";
                     }
                     else{
-                        $xoauser = "<button> <a href='index.php?act=xoauser&id=".$id_user."'>Xóa</a> </button>";
+                        $xoauser = "<button> <a btn-admin  href='index.php?act=xoauser&id=".$id_user."'>Xóa</a> </button>";
                     }
                     echo '
                             <tr>

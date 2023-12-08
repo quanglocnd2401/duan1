@@ -2,7 +2,7 @@
 
 
 <div
-id="myChart" style="width:100%; max-width:600px; height:500px;">
+id="myChart" style="width:100%; max-width:1000px; height:800px;">
 </div>
 
 <script>
@@ -18,7 +18,7 @@ const data = google.visualization.arrayToDataTable([
     foreach ($listthongke as $tk) {
         extract($tk);
         echo '
-        ["'.$tensach.'",'.$countbl.'],
+        ["'.$name.'",'.$countbl.'],
     ';
     }
     ?>
@@ -27,7 +27,7 @@ const data = google.visualization.arrayToDataTable([
 
 // Set Options
 const options = {
-  title:'World Wide Wine Production'
+  title:'Thống kê số bình luận theo danh mục'
 };
 
 // Draw

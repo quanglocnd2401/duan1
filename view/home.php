@@ -94,7 +94,7 @@
         <?php
 
         foreach ($listsp as $sp) {
-            extract($sp);
+            extract($sp); // $img , $tieude , $id_book   , $price
         ?>
             <div class="col-lg-3 col-md-5 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
@@ -105,21 +105,44 @@
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3"><?php echo $tieude; ?> </h6>
                         <div class="d-flex justify-content-center">
-                            <h6>$123.00</h6>
+                            <h6><?= $price; ?> </h6>
                             <h6 class="text-muted ml-2"><del>$123.00</del></h6>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
                         <a href="index.php?act=sanphamct&id=<?= $id_book ?>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                        
+                        <button  data-id="<?= $id_book ?>" onclick="addToCart( <?= $id_book ?>,'<?= $img ?>','<?= $tieude ?>','<?= $price ?>' )" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</button>
                     </div>
                 </div>
             </div>
-
         <?php
         }
         ?>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script>
+            let totalProduct = document.getElementById('totalProduct');
 
+            function addToCart(productId , productImg, productName  , productPrice){
+                // console.log(productId , productImg, productName  , productPrice);
+                $.ajax({
+                    type: 'POST',
+                    url: "view/addToCart.php",
+                    data:{
+                        id: productId,
+                        name:productName,
+                        price:productPrice
+                    },
+                    success: function(response){
+                        totalProduct.innerText = response;
+                        alert('Thêm giỏ hàng thành công');
+                    },
+                    error:function(error){
+                        console.log(error);
+                    }
+                });
+            }
+        </script>
 
     </div>
     <nav aria-label="Page navigation">

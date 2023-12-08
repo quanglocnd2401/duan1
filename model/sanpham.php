@@ -1,7 +1,7 @@
 <?php
 
 
-/*SELECT * FROM `books` as b JOIN `theloai` as tl on b.id_theloai = tl.id_theloai Join `chitiet_book` as ctb on b.id_book = ctb.id_book where xoasp = 0 and b.id_theloai = 1 */
+// SELECT b.id_book,b.tieude,a.name_author,tl.name, SUM(ctb.soluong) AS TotalQuantity,b.ngayxuatban,b.price  FROM books AS b JOIN theloai AS tl ON b.id_theloai = tl.id_theloai JOIN chitiet_book AS ctb ON b.id_book = ctb.id_book JOIN language AS lan ON ctb.id_language = lan.id_language JOIN author AS a ON b.id_author = a.id_author WHERE b.xoasp = 0 GROUP BY b.id_book
 function load_all_sanpham($start,$per_page,$idtheloai)
 {
     $sql = "SELECT * FROM `books` as b JOIN `theloai` as tl on b.id_theloai = tl.id_theloai Join `chitiet_book` as ctb on b.id_book = ctb.id_book Join `author` as a on b.id_author = a.id_author where xoasp = 0 ";
@@ -83,4 +83,10 @@ function load_sanpham_lienquan($id_book,$id_theloai){
     $sql = "SELECT * FROM `books` WHERE id_theloai = $id_theloai and id_book<> $id_book order by id_book limit 4";
     $listsp = pdo_query($sql);
     return $listsp;
+}
+
+function loadone_sanphamCart($idList){
+    $sql = "SELECT * FROM `books` WHERE id_book IN ('".$idList."')";
+    $sanpham = pdo_query($sql);
+    return $sanpham;
 }

@@ -12,46 +12,7 @@
 </style>
 
 <?php 
-if (isset($_POST['dangki']) && $_POST['dangki']) {
-    if(empty($_POST['username'])){
-        $nameErr = "Name is Require";
-    }else{
-        $username = test_input($_POST['username']);
-    }
 
-    if(empty($_POST['pass1'])){
-        $nameErr = "Name is Require";
-    }else{
-        $pass1 = test_input($_POST['pass1']) ;
-    }
-
-    if(empty($_POST['pass2'])){
-        $nameErr = "Name is Require";
-    }else{
-        $pass2 = test_input($_POST['pass2']) ;
-    }
-
-    if(empty($_POST['email'])){
-        $nameErr = "Name is Require";
-    }else{
-        $email = test_input($_POST['email']) ;
-    }
-
-    
-    if(isset($nameErr)){
-        header('Location: index.php?act=register');
-        setcookie('inputErr', 'Vui lòng nhập đủ trường', time() + 10, '/');
-    }
-    else if ($pass1 != $pass2) { 
-        header('Location: index.php?act=register');
-        setcookie('error', 'Mật khẩu không được trùng', time() + 10, '/');
-    }
-    else{
-        dang_ki($username, $pass1, $email);
-        setcookie('registed', 'Đăng kí thành công', time() + 10, '/');
-    }
-    header("Location: index.php?act=register");
-}
 ?>
 <div class="container custom-container">
     <h2>Đăng Ký</h2>

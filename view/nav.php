@@ -59,14 +59,9 @@
                     ?>
                         <a href="admin/index.php" class="nav-item nav-link">Admin</a>
                     <?php
-
                         }
                     ?>  
-                        
-                        <a href="index.php?act=dangxuat" class="nav-item nav-link">Đăng xuất</a>
-                        <p>Chào bạn, <?php if (isset($_SESSION['user']['username'])) echo $_SESSION['user']['username']; ?></p>
                     
-
                     <?php
                     } else {
                     ?>

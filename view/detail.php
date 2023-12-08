@@ -49,9 +49,9 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
                 </div>
                 <small class="pt-1">(50 Reviews)</small>
             </div>
-            <h3 class="font-weight-semi-bold mb-4"><?php echo number_format($price); ?></h3>
+            <h3 class="font-weight-semi-bold mb-4"><?php echo number_format($price); ?> đ</h3>
             <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
-            <div class="d-flex mb-3">
+            <!-- <div class="d-flex mb-3">
                 <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
                 <form>
                     <div class="custom-control custom-radio custom-control-inline">
@@ -75,26 +75,26 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
                         <label class="custom-control-label" for="size-5">XL</label>
                     </div>
                 </form>
-            </div>
+            </div> -->
 
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 130px;">
-                    <div class="input-group-btn">
+                    <!-- <div class="input-group-btn">
                         <button class="btn btn-primary btn-minus" onclick="decreaseQuantity()">
                             <i class="fa fa-minus"></i>
                         </button>
-                    </div>
-                    <input type="text" class="form-control bg-secondary text-center" value="1" id="quantityInput">
-                    <div class="input-group-btn">
+                    </div> -->
+                    <input type="number" min="1" max="<?= $soluong ?>" class="form-control bg-secondary text-center" value="1" id="quantityInput">
+                    <!-- <div class="input-group-btn">
                         <button class="btn btn-primary btn-plus" onclick="increaseQuantity()">
                             <i class="fa fa-plus"></i>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
-                <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                <button data-id="<?= $id_book ?>" onclick="addToCart( <?= $id_book ?>,'<?= $img ?>','<?= $tieude ?>','<?= $price ?>' )" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
             </div>
             <div class="d-flex pt-2">
-                <p class="text-dark font-weight-medium mb-0 mr-2">Quantity:</p>
+                <p class="text-dark font-weight-medium mb-0 mr-2">Số lượng :</p>
                 <p class="mb-4"><?= $soluong; ?></p>
 
             </div>
@@ -160,7 +160,7 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
                                     <input type="text" name="noidung">
                                 </div>
                                 <div class="form-group mb-0">
-                                    <input name="guibinhluan" type="submit" value="Leave Your Review" class="btn btn-primary px-3" >
+                                    <input name="guibinhluan" type="submit" value="Leave Your Review" class="btn btn-primary px-3">
                                 </div>
                             </form>
 
@@ -174,8 +174,31 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
         </div>
     </div>
 </div>
-<!-- Shop Detail End -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 <script>
+    let totalProduct = document.getElementById('totalProduct');
+
+    function addToCart(productId, productImg, productName, productPrice) {
+        // console.log(productId , productImg, productName  , productPrice);
+        $.ajax({
+            type: 'POST',
+            url: "view/addToCart.php",
+            data: {
+                id: productId,
+                name: productName,
+                price: productPrice
+            },
+            success: function(response) {
+                totalProduct.innerText = response;
+                alert('Thêm giỏ hàng thành công');
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
     function increaseQuantity() {
         var quantityInput = document.getElementById('quantityInput');
         var currentValue = parseInt(quantityInput.value);
@@ -184,9 +207,10 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
         if (!isNaN(currentValue)) {
             quantityInput.value = currentValue + 1;
         } else {
-            
+
         }
     }
+
     function decreaseQuantity() {
         var quantityInput = document.getElementById('quantityInput');
         var currentValue = parseInt(quantityInput.value);
@@ -195,7 +219,7 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
         if (!isNaN(currentValue) && currentValue > 1) {
             quantityInput.value = currentValue - 1;
         } else {
-           
+
         }
     }
 </script>
@@ -207,15 +231,15 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
     </div>
     <div class="row px-xl-5 pb-3">
         <?php
-      
+
         foreach ($sanphamlienquan as $sp) {
             extract($sp);
         ?>
             <div class="col-lg-3 col-md-5 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
 
-                    <div  class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/<?= $img?>" alt="">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="img/<?= $img ?>" alt="">
                     </div>
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3"><?php echo $tieude; ?> </h6>
@@ -225,7 +249,7 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="index.php?act=sanphamct&id=<?= $id_book?>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="index.php?act=sanphamct&id=<?= $id_book ?>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                         <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                     </div>
                 </div>
@@ -234,7 +258,7 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
         <?php
         }
         ?>
-        
-       
+
+
     </div>
 </div>

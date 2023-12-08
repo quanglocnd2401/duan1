@@ -76,15 +76,33 @@
                     </div>
                 </form>
             </div>
+            
             <div class="col-lg-3 col-6 text-right">
                 <a href="" class="btn border">
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
                 </a>
-                <a href="" class="btn border">
+            
+                <a href="index.php?act=listCart" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span id="totalProduct"><?= !empty($_SESSION['cart']) ? count($_SESSION['cart']): 0 ?></span>
                 </a>
+                <div class="btn-group">
+                    <button type="button" class="btn border dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user text-primary"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="index.php?act=userManager&id=<?=
+                        (isset($_SESSION['user']))? $_SESSION['user']['id_user'] : ""?>">user</a>
+                        <a class="dropdown-item" href="index.php?act=listdonhang">đơn hàng</a>
+                    <?php if(isset($_SESSION['loged'])) :?>
+                        <a class="dropdown-item" href="index.php?act=dangxuat">Đăng xuất</a>
+
+                    <?php endif; ?>
+                    </div>
+                </div>
+                
+                
             </div>
         </div>
     </div>

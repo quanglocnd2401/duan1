@@ -7,7 +7,9 @@ include_once("../model/tacgia.php");
 include_once("../model/nhaxuatban.php");
 include_once("../model/binhluan.php");
 include_once("../model/thongke.php");
+include_once("../model/bill.php");
 include_once("../model/user.php");
+include_once("../model/voucher.php");
 include_once("header.php");
 
 
@@ -31,7 +33,7 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $id = $_GET['id'];
                 xoa_danhmuc($id);
             }
-          
+
             header("Location: index.php?act=listtheloai&page=1");
             break;
         case 'addtheloai':
@@ -40,8 +42,8 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $img = $_FILES['img']['name'];
                 $targer_dir = "../img/";
                 $target_file = $targer_dir . basename($_FILES['img']['name']);
-                move_uploaded_file($_FILES['img']['tmp_name'],$target_file);
-                add_danhmuc($name,$img);
+                move_uploaded_file($_FILES['img']['tmp_name'], $target_file);
+                add_danhmuc($name, $img);
                 $per_page = 3;
                 $listdm = load_all_danhmuc(0, $per_page);
                 header("Location: index.php?act=listtheloai&page=1");
@@ -64,13 +66,13 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $img = $_FILES['imgtheloai']['name'];
                 $targer_dir = "../img/";
                 $target_file = $targer_dir . basename($_FILES['imgtheloai']['name']);
-                if(move_uploaded_file($_FILES['imgtheloai']['tmp_name'],$target_file)){
+                if (move_uploaded_file($_FILES['imgtheloai']['tmp_name'], $target_file)) {
                     echo "up thanh cong";
-                }else{
+                } else {
                     echo "up khong thanh cong";
                 }
-                
-                uppdate_danhmuc($id, $name,$img);
+
+                uppdate_danhmuc($id, $name, $img);
             }
 
             header("Location: index.php?act=listtheloai&page=1");
@@ -96,8 +98,8 @@ if (isset($_GET['act']) && $_GET['act']) {
             $max_page = ceil($num / $per_page);
             $page = $_GET['page'];
             $start = ($page - 1) * $per_page;
-            
-            $listsp = load_all_sanpham($start,$per_page,"");
+
+            $listsp = load_all_sanpham($start, $per_page, "");
             require_once('sanpham/listsp.php');
             break;
 
@@ -106,7 +108,7 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $id = $_GET['id'];
                 xoa_sanpham($id);
             }
-            header("Location: index.php?act=listsp");
+            header("Location: index.php?act=listsp&page=1");
             break;
         case 'addsp':
             if (isset($_POST['addsp']) && $_POST['addsp']) {
@@ -119,18 +121,18 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $img = $_FILES['img']['name'];
                 $targer_dir = "../img/";
                 $target_file = $targer_dir . basename($_FILES['img']['name']);
-                if(move_uploaded_file($_FILES['img']['tmp_name'],$target_file)){
+                if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
                     echo "up thanh cong";
-                }else{
+                } else {
                     echo "up khong thanh cong";
                 }
                 $theloai = $_POST['theloai'];
-                add_sanpham($tensach,$img, $tacgia, $nhaxuatban, $date, $price, $theloai);
+                add_sanpham($tensach, $img, $tacgia, $nhaxuatban, $date, $price, $theloai);
                 $sanphams = load_new_sanpham();
                 extract($sanphams);
-                
-                add_chitiet_sanpham($id_book,$soluong);
-                
+
+                add_chitiet_sanpham($id_book, $soluong);
+
 
                 header("Location: index.php?act=listsp&page=1");
             } else {
@@ -163,22 +165,21 @@ if (isset($_GET['act']) && $_GET['act']) {
 
                 $targer_dir = "../img/";
                 $target_file = $targer_dir . basename($_FILES['img']['name']);
-                if(move_uploaded_file($_FILES['img']['tmp_name'],$target_file)){
+                if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
                     echo "up thanh cong";
-                }else{
+                } else {
                     echo "up khong thanh cong";
                 }
-                
-                uppdate_sanpham($id_book,$img, $name,$tacgia,$theloai,$ngayxuatban, $gia, $soluong);
 
+                uppdate_sanpham($id_book, $img, $name, $tacgia, $theloai, $ngayxuatban, $gia, $soluong);
             }
-            $listdm = load_all_sanpham("","","");
+            $listdm = load_all_sanpham("", "", "");
             header("Location:index.php?act=listsp&page=1");
             break;
         case 'searchsp':
             if (isset($_POST['search']) && $_POST['search']) {
                 $keyword = $_POST['keyword'];
-                $listdm = load_all_sanpham("","","");
+                $listdm = load_all_sanpham("", "", "");
                 require_once('danhmuc/listsp.php');
             }
             break;
@@ -187,7 +188,7 @@ if (isset($_GET['act']) && $_GET['act']) {
             require_once('user/listuser.php');
             break;
         case 'xoauser':
-            if(isset($_GET['id'])&& $_GET['id']> 0){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_user = $_GET['id'];
                 xoa_user($id_user);
             }
@@ -198,7 +199,7 @@ if (isset($_GET['act']) && $_GET['act']) {
             require_once('binhluan/listbl.php');
             break;
         case 'xoabl':
-            if(isset($_GET['id'])&& $_GET['id']> 0){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_binhluan = $_GET['id'];
                 xoa_binhluan($id_binhluan);
             }
@@ -207,6 +208,80 @@ if (isset($_GET['act']) && $_GET['act']) {
         case 'thongke':
             $listthongke = thongke_binhluan();
             require_once "thongke/thongkebinhluan.php";
+            break;
+        case 'thongkedt':
+            if (isset($_POST['submittk'])) {
+                $selectTime = $_POST['timeRange'];
+
+                if ($selectTime == "years") {
+                    $time = "Năm";
+                    $thongke = thongke_doanhthu_nam();
+                } elseif ($selectTime == "month") {
+                    $time = "Tháng";
+                    $thongke = thongke_doanhthu();
+                } elseif ($selectTime == "365day") {
+                    $currentDate = date("Y-m-d");
+                    // Tính toán ngày 365 ngày trước
+                    $previousDate = date("Y-m-d", strtotime($currentDate . " -365 days"));
+                    $time = "365 ngày";
+                    $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
+                }
+                 elseif ($selectTime == "28day") {
+                    $currentDate = date("Y-m-d");
+                    // Tính toán ngày 365 ngày trước
+                    $previousDate = date("Y-m-d", strtotime($currentDate . " -28 days"));
+                    $time = "28 ngày";
+                    $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
+                }
+                 elseif ($selectTime == "7day") {
+                    $currentDate = date("Y-m-d");
+                    // Tính toán ngày 365 ngày trước
+                    $previousDate = date("Y-m-d", strtotime($currentDate . " -7 days"));
+                    $time = "7 ngày";
+                    $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
+                }
+                require_once "thongke/thongkedoanhthu.php";
+                break;
+            }
+            $time = "Tháng";
+            $thongke = thongke_doanhthu();
+            require_once "thongke/thongkedoanhthu.php";
+            break;
+
+            //------------------------------------------------------------------
+        case 'listbill':
+            $listbill = select_all_bill();
+            require_once "bill/listbill.php";
+            break;
+        case 'updateBill':
+            if (isset($_GET['id'])) {
+                $id_donhang =  $_GET['id'];
+                $onebill = select_one_bill($id_donhang);
+            }
+            require_once "bill/updatebill.php";
+            break;
+        case 'capnhatBill':
+            if (isset($_POST['updateBill']) && $_POST['updateBill']) {
+                $id_donhang =  $_POST['id_donhang'];
+                $status = $_POST['status'];
+                update_status_bill($id_donhang, $status);
+            }
+            header('Location:index.php?act=listbill');
+            break;
+        case 'voucher':
+            $listvc = select_voucher();
+            include_once('voucher/listvoucher.php');
+            break;
+        case 'addvoucher':
+            if (isset($_POST['addvoucher'])) {
+                $mavoucher = $_POST['name_voucher'];
+                $loai = $_POST['type_voucher'];
+                $giamgia = $_POST['giamgia'];
+                $soluong = $_POST['quantity_voucher'];
+                insert_voucher($mavoucher, $loai, $giamgia, $soluong);
+                header("Location:index.php?act=voucher");
+            }
+            include_once('voucher/addvoucher.php');
             break;
         default:
             include_once('home.php');

@@ -1,6 +1,7 @@
 <?php
 if (is_array($onesanpham)) {
     extract($onesanpham);
+    
 }
 ?>
 <style>
@@ -71,9 +72,15 @@ if (is_array($onesanpham)) {
         $theloai = load_all_danhmuc("", "");
 
         foreach ($theloai as $tl) {
-            extract($tl);
-        ?>
-            <option value="<?= $id_theloai;?>"><?= $name; ?></option>
+            
+            if($tl['id_theloai']==$id_theloai){
+                echo '<option value="'.$tl['id_theloai'].'" selected>'.$tl['name'].'</option>';
+            }else{
+                echo '<option value="'.$tl['id_theloai'].'">'.$tl['name'].'</option>';
+            }
+        ?>  
+            
+         
         <?php
         }
         ?>

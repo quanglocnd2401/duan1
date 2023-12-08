@@ -10,6 +10,7 @@ ob_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    
     <link rel="stylesheet" href="../css/admin1.css">
     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -41,7 +42,7 @@ ob_start();
                 <li>
                     <a href="index.php?act=listsp&page=1">
                         <span class="icon">
-                            <ion-icon name="people-outline"></ion-icon>
+                        <ion-icon name="cube-outline"></ion-icon>
                         </span>
                         <span class="title">Sản phẩm</span>
                     </a>
@@ -52,16 +53,16 @@ ob_start();
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>
-                        <span class="title">Comment</span>
+                        <span class="title">Bình luận</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="index.php?act=listbill">
                         <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
+                        <ion-icon name="clipboard-outline"></ion-icon>
                         </span>
-                        <span class="title">Help</span>
+                        <span class="title">Đơn hàng</span>
                     </a>
                 </li>
 
@@ -70,9 +71,17 @@ ob_start();
                 <li>
                     <a href="index.php?act=listuser">
                         <span class="icon">
-                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                         </span>
                         <span class="title">User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.php?act=voucher">
+                        <span class="icon">
+                        <ion-icon name="pricetags-outline"></ion-icon>
+                        </span>
+                        <span class="title">Voucher</span>
                     </a>
                 </li>
                 <li>
@@ -115,8 +124,9 @@ ob_start();
 
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <?php $numbill = nums_bill() ?>
+                        <div class="numbers"><?= $numbill ?></div>
+                        <div class="cardName">Bill</div>
                     </div>
 
                     <div class="iconBx">
@@ -138,8 +148,17 @@ ob_start();
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <?php
+                        $total = 0;
+                        $listbill = select_all_bill();
+                        foreach ($listbill as $bill) {
+                            $oneProduct = $bill['total_donhang'];
+                            $total+= $oneProduct;
+                        }
+
+                        ?>
+                        <div class="numbers"><?= number_format( $total); ?></div>
+                        <div class="cardName"><a href="index.php?act=thongkedt">Tổng Doanh Thu</a> </div>
                     </div>
 
                     <div class="iconBx">

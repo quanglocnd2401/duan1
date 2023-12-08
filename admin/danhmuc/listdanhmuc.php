@@ -1,5 +1,6 @@
 <!-- ================ Order Details List ================= -->
-
+<style>
+</style>
 <div class="details">
     <div class="recentOrders">
         <div class="topbar">
@@ -15,13 +16,13 @@
 
             </div>
 
-
+        
         </div>
         <div class="cardHeader">
             <h2>Recent Orders</h2>
             <a href="index.php?act=addtheloai" class="btn">Thêm</a>
         </div>
-
+        
         <table>
             <thead>
                 <tr>
@@ -46,8 +47,8 @@
                             <tr>
                             <td>' . $id . '</td>
                             <td>' . $name . '</td>
-                            <td><a class="btn-admin" href="' . $xoatheloai . '">delete</a>
-                                <a class="btn-admin" href="' . $suatheloai . '">edit</a>
+                            <td> <a class="btn-admin" href="' . $xoatheloai . '">delete</a> 
+                                 <a class="btn-admin" href="' . $suatheloai . '">edit</a>  
                                 </td>  
                             </tr>
                            ';
