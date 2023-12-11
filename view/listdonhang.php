@@ -24,7 +24,7 @@
             "3" => "Đang vận chuyển",
             "4" => "Hoàn thành"
         ];
-
+        
         $badgeClass = ""; // Mặc định không có class màu
         switch ($status) {
             case "0":

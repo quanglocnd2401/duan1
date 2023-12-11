@@ -1,7 +1,6 @@
 <?php 
 
 $id_donhang = $id_bill[0]['id_donhang'];
-
 if(!empty($_SESSION['cart'])){
     $cart = $_SESSION['cart'];
     

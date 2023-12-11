@@ -50,46 +50,33 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
                 <small class="pt-1">(50 Reviews)</small>
             </div>
             <h3 class="font-weight-semi-bold mb-4"><?php echo number_format($price); ?> đ</h3>
-            <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
-            <!-- <div class="d-flex mb-3">
-                <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
-                <form>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="size-1" name="size">
-                        <label class="custom-control-label" for="size-1">XS</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="size-2" name="size">
-                        <label class="custom-control-label" for="size-2">S</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="size-3" name="size">
-                        <label class="custom-control-label" for="size-3">M</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="size-4" name="size">
-                        <label class="custom-control-label" for="size-4">L</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="size-5" name="size">
-                        <label class="custom-control-label" for="size-5">XL</label>
-                    </div>
-                </form>
-            </div> -->
+            <div class="d-flex justify-content-between pt-1">
+                <div class="mr-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-2 small">Tác giả :</p>
+                    <p class="mb-4 text-info"><?= $name_author; ?></p>
+                </div>
+
+                <div >
+                    <p class="text-dark font-weight-medium mb-0 mr-2 small">Nhà xuất bản :</p>
+                    <p class="mb-4 text-info"><?= $name_nhaxuatban ?></p>
+                </div>
+            </div> <hr>
+            <p class="mb-4">Đ Sau 24 năm, câu chuyện này đã hồi sinh bộ phim truyền hình “Pháo hoa, ngắm từ dưới hay bên cạnh?”. Đây có thể coi là Chuyến tàu đêm trên dải Ngân hà phiên bản Shunji Iwai..</p>
+
 
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 130px;">
-                    <!-- <div class="input-group-btn">
+                    <div class="input-group-btn">
                         <button class="btn btn-primary btn-minus" onclick="decreaseQuantity()">
                             <i class="fa fa-minus"></i>
                         </button>
-                    </div> -->
+                    </div>
                     <input type="number" min="1" max="<?= $soluong ?>" class="form-control bg-secondary text-center" value="1" id="quantityInput">
-                    <!-- <div class="input-group-btn">
+                    <div class="input-group-btn">
                         <button class="btn btn-primary btn-plus" onclick="increaseQuantity()">
                             <i class="fa fa-plus"></i>
                         </button>
-                    </div> -->
+                    </div>
                 </div>
                 <button data-id="<?= $id_book ?>" onclick="addToCart( <?= $id_book ?>,'<?= $img ?>','<?= $tieude ?>','<?= $price ?>' )" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
             </div>
@@ -125,8 +112,8 @@ if (isset($_POST['guibinhluan']) && $_POST['guibinhluan']) {
             </div>
             <div class="tab-content">
                 <div class="tab-pane fade" id="tab-pane-1">
-                    <h4 class="mb-3">Product Description</h4>
-                    <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod..</p>
+                    <h4 class="mb-3">Mô tả</h4>
+                    <p>Đây là câu chuyện về tình bạn, tình yêu tuổi mới lớn được khắc họa vô cùng tinh tế và sinh động. Tác phẩm được cải biên để phù hợp với bản phim hoạt hình, và khôi phục những phân đoạn bị lược bỏ trên phim. Sau 24 năm, câu chuyện này đã hồi sinh bộ phim truyền hình “Pháo hoa, ngắm từ dưới hay bên cạnh?”. Đây có thể coi là Chuyến tàu đêm trên dải Ngân hà phiên bản Shunji Iwai..</p>
                 </div>
 
                 <div class="tab-pane fade  show active" id="tab-pane-3">

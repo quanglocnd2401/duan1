@@ -216,33 +216,37 @@ if (isset($_GET['act']) && $_GET['act']) {
                 if ($selectTime == "years") {
                     $time = "Năm";
                     $thongke = thongke_doanhthu_nam();
+                    
                 } elseif ($selectTime == "month") {
                     $time = "Tháng";
                     $thongke = thongke_doanhthu();
                 } elseif ($selectTime == "365day") {
                     $currentDate = date("Y-m-d");
-                    // Tính toán ngày 365 ngày trước
+                    
                     $previousDate = date("Y-m-d", strtotime($currentDate . " -365 days"));
                     $time = "365 ngày";
                     $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
                 }
                  elseif ($selectTime == "28day") {
                     $currentDate = date("Y-m-d");
-                    // Tính toán ngày 365 ngày trước
+                   
                     $previousDate = date("Y-m-d", strtotime($currentDate . " -28 days"));
                     $time = "28 ngày";
                     $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
                 }
                  elseif ($selectTime == "7day") {
                     $currentDate = date("Y-m-d");
+                    
                     // Tính toán ngày 365 ngày trước
                     $previousDate = date("Y-m-d", strtotime($currentDate . " -7 days"));
                     $time = "7 ngày";
                     $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
                 }
+                $selected = "selected";
                 require_once "thongke/thongkedoanhthu.php";
                 break;
             }
+            
             $time = "Tháng";
             $thongke = thongke_doanhthu();
             require_once "thongke/thongkedoanhthu.php";

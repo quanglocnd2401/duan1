@@ -20,10 +20,59 @@ function load_all_sanpham($start,$per_page,$idtheloai)
     return $listsp;
 }
 
-function load_sanpham_theo_gia($start,$per_page,$gia1,$gia2)
-{
-    $sql = "SELECT * FROM `books` as b JOIN `theloai` as tl on b.id_theloai = tl.id_theloai Join `chitiet_book` as ctb on b.id_book = ctb.id_book Join `author` as a on b.id_author = a.id_author where xoasp = 0 and price between $gia1 and $gia2";
+function load_sanpham_search($kyw){
+    $kyw = trim($kyw);
+    $sql = "SELECT * FROM `books` as b JOIN `theloai` as tl on b.id_theloai = tl.id_theloai Join `chitiet_book` as ctb on b.id_book = ctb.id_book Join `author` as a on b.id_author = a.id_author where xoasp = 0 and tieude like '%$kyw%'";
+    $listsearch = pdo_query($sql);
+    return $listsearch;
 
+}
+
+// function load_sanpham_theo_gia($start,$per_page,$gia1,$gia2)
+// {
+//     $sql = "SELECT * FROM `books` as b JOIN `theloai` as tl on b.id_theloai = tl.id_theloai Join `chitiet_book` as ctb on b.id_book = ctb.id_book Join `author` as a on b.id_author = a.id_author where xoasp = 0 and price between $gia1 and $gia2";
+
+//     if($start!="" && $per_page!="") {
+//         $sql.= " order by b.id_book limit ".$start.",".$per_page;
+//     }
+//     else{
+//         $sql.= "";
+//     }
+
+//     $listsp = pdo_query($sql);
+//     return $listsp;
+// }
+function load_sanpham_khoang_gia($start,$per_page,$gia){
+    $sql = "SELECT * FROM `books` as b JOIN `theloai` as tl on b.id_theloai = tl.id_theloai Join `chitiet_book` as ctb on b.id_book = ctb.id_book Join `author` as a on b.id_author = a.id_author ";
+    
+    if(!empty($gia) && is_array($gia)){
+        $conditions = [];
+        foreach($gia as $priceRange){
+            switch($priceRange){
+                case "0-100":
+                    $conditions[] = "price BETWEEN 0 AND 100";
+                    break;
+                case "100-200":
+                    $conditions[] = "price BETWEEN 100 AND 200";
+                    break;
+                case "200-300":
+                    $conditions[] = "price BETWEEN 200 AND 300";
+                    break;
+                case "300-400":
+                    $conditions[] = "price BETWEEN 300 AND 400";
+                    break;
+                case "400-500":
+                    $conditions[] = "price BETWEEN 400 AND 500";
+                    break;
+            }
+        }
+
+        $sql .= "WHERE xoasp = 0 AND (" . implode(" OR ", $conditions) . ")";
+    }
+    else{
+        $sql .= "WHERE xoasp = 0";
+    }
+    
     if($start!="" && $per_page!="") {
         $sql.= " order by b.id_book limit ".$start.",".$per_page;
     }
@@ -38,7 +87,11 @@ function load_sanpham_theo_gia($start,$per_page,$gia1,$gia2)
 
 function load_one_sanpham($id)
 {
-    $sql = "SELECT * FROM `books` as b JOIN `theloai` as tl on b.id_theloai = tl.id_theloai Join `chitiet_book` as ctb on b.id_book = ctb.id_book Join `author` as a on b.id_author = a.id_author where xoasp = 0 and b.id_book=". $id;
+    $sql = "SELECT * FROM `books` as b 
+    JOIN `theloai` as tl on b.id_theloai = tl.id_theloai
+     Join `chitiet_book` as ctb on b.id_book = ctb.id_book 
+     Join `author` as a on b.id_author = a.id_author 
+     join nhaxuatban as nxb on b.id_nhaxuatban = nxb.id_nhaxuatban where xoasp = 0 and b.id_book=". $id;
     $onedanhmuc = pdo_query_one($sql);
     return $onedanhmuc;
 }
@@ -49,9 +102,13 @@ function xoa_sanpham($index)
 }
 
 function load_new_sanpham(){
-    $sql = "SELECT * FROM `books` order by id_book desc limit 1";
-    $newsanpham = pdo_query_one($sql);
-    return $newsanpham;
+    {
+        $sql = "SELECT * FROM `books` as b JOIN `theloai` as tl on b.id_theloai = tl.id_theloai Join `chitiet_book` as ctb on b.id_book = ctb.id_book Join `author` as a on b.id_author = a.id_author where xoasp = 0 
+        order by b.id_book limit 0,4 ";
+
+        $listsp = pdo_query($sql);
+        return $listsp;
+    }
 }   
 
 function add_sanpham($tensach, $img, $tacgia, $nhaxuatban, $date, $price, $theloai)

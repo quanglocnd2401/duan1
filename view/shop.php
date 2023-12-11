@@ -1,15 +1,3 @@
-<div class="container-fluid bg-secondary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
-        <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
-            <p class="m-0 px-2">-</p>
-            <p class="m-0">Shop</p>
-        </div>
-    </div>
-</div>
-<!-- Page Header End -->
-
 
 <!-- Shop Start -->
 <div class="container-fluid pt-5">
@@ -20,48 +8,46 @@
             <div class="border-bottom mb-4 pb-4">
                 <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
 
-                <form action="index.php?act=shop" method="POST">
+                <!-- <form action="index.php?act=shop" method="POST">
                     Giá từ:
                     <input type="number" name="gia1" value="0"><br> <br>
                     Đến:
                     <input type="number" name="gia2" value="1000"><br> <br>
                     <input type="submit" name="filter" value="Tìm">
-                </form>
+                </form> -->
 
-
-
-                <!-- <form  action="index.php?act=shop" method="POST"> 
+                <form  action="index.php?act=shop" method="POST"> 
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" checked id="price-all">
                             <label class="custom-control-label" for="price-all">All Price</label>
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
+                            <input name="price[]" value="0-100" type="checkbox" class="custom-control-input" id="price-1">
                             <label  class="custom-control-label" for="price-1">$0 - $100</label>
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
+                            <input name="price[]" value="100-200" type="checkbox" class="custom-control-input" id="price-2">
                             <label class="custom-control-label" for="price-2">$100 - $200</label>
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-3">
+                            <input name="price[]" value="200-300" type="checkbox" class="custom-control-input" id="price-3">
                             <label class="custom-control-label" for="price-3">$200 - $300</label>
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-4">
+                            <input name="price[]" value="300-400" type="checkbox" class="custom-control-input" id="price-4">
                             <label class="custom-control-label" for="price-4">$300 - $400</label>
-                            
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
+                        <div  class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                            <input name="price[]" value="400-500" type="checkbox" class="custom-control-input" id="price-5">
                             <label class="custom-control-label" for="price-5">$400 - $500</label>
-                            
                         </div>
-                    </form> -->
+
+                        <input type="submit" name="filter" value="Tìm">
+                    </form>
             </div>
 
         </div>
