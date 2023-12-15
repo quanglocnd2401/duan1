@@ -4,6 +4,10 @@
         pdo_execute($sql);
     }
 
+    function delete_bill($id){
+        $sql = "UPDATE `donhang` SET `huy` = '1' WHERE `donhang`.`id_donhang` = $id";
+        pdo_execute($sql);
+    }
     function get_idbill(){
         $sql = "SELECT id_donhang FROM `donhang` order by id_donhang desc limit 1 ";
         $id_bill = pdo_query($sql);
@@ -20,12 +24,17 @@
         return $list;
     }
     function select_all_bill(){
-        $sql = "SELECT * FROM `donhang` WHERE 1";
+        $sql = "SELECT * FROM `donhang` WHERE huy = 0 ";
+        $listbill = pdo_query($sql);
+        return $listbill;
+    }
+    function select_all_bill_cancel(){
+        $sql = "SELECT * FROM `donhang` WHERE huy = 1";
         $listbill = pdo_query($sql);
         return $listbill;
     }
     function select_all_bill_user($id){
-        $sql = "SELECT * FROM `donhang` WHERE id_user=$id";
+        $sql = "SELECT * FROM `donhang` WHERE id_user=$id and huy = 0";
         $listbill = pdo_query($sql);
         return $listbill;
     }
@@ -52,4 +61,6 @@
         $numbill = nums_row($sql);
         return $numbill;
     }
+
+   
 ?>

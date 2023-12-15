@@ -114,7 +114,7 @@ ob_start();
                     <div>
                         <?php $num = soluong_sanpham();?>
                         <div class="numbers"><?= $num ?></div>
-                        <div class="cardName">Số sản phẩm</div>
+                        <div class="cardName">Sản phẩm</div>
                     </div>
 
                     <div class="iconBx">
@@ -138,7 +138,7 @@ ob_start();
                     <div>
                     <?php $numbl = soluong_binhluan();?>
                         <div class="numbers"><?= $numbl ?></div>
-                        <div class="cardName"> <a href="index.php?act=thongke"> Bình luận </a> </div>
+                        <div class="cardName"> <a href="index.php?act=thongke">Đánh giá</a> </div>
                     </div>
 
                     <div class="iconBx">

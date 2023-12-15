@@ -71,8 +71,9 @@ if (isset($_GET['act']) && $_GET['act']) {
                 } else {
                     echo "up khong thanh cong";
                 }
-
-                uppdate_danhmuc($id, $name, $img);
+                echo $id,$name,$img;
+                
+                update_danhmuc($id, $name, $img);
             }
 
             header("Location: index.php?act=listtheloai&page=1");
@@ -80,8 +81,19 @@ if (isset($_GET['act']) && $_GET['act']) {
         case 'listsearch':
             if (isset($_GET['kyw']) && !empty($_GET['kyw'])) {
                 $keyword = $_GET['kyw'];
-                $listsearch = search_item("theloai", $keyword);
+                $listsearch = search_item("theloai", "name", $keyword);
                 require_once('danhmuc/listsearch.php');
+                break;
+            } else {
+
+                header("Location: index.php?act=listtheloai&page=1");
+            }
+            break;
+        case 'listsearchsp':
+            if (isset($_GET['kyw']) && !empty($_GET['kyw'])) {
+                $keyword = $_GET['kyw'];
+                $listsearch = load_sanpham_search($keyword);
+                require_once('sanpham/listsearchSp.php');
                 break;
             } else {
 
@@ -128,6 +140,7 @@ if (isset($_GET['act']) && $_GET['act']) {
                 }
                 $theloai = $_POST['theloai'];
                 add_sanpham($tensach, $img, $tacgia, $nhaxuatban, $date, $price, $theloai);
+
                 $sanphams = load_new_sanpham();
                 extract($sanphams);
 
@@ -176,13 +189,7 @@ if (isset($_GET['act']) && $_GET['act']) {
             $listdm = load_all_sanpham("", "", "");
             header("Location:index.php?act=listsp&page=1");
             break;
-        case 'searchsp':
-            if (isset($_POST['search']) && $_POST['search']) {
-                $keyword = $_POST['keyword'];
-                $listdm = load_all_sanpham("", "", "");
-                require_once('danhmuc/listsp.php');
-            }
-            break;
+
         case 'listuser':
             $listuser =  load_all_user();
             require_once('user/listuser.php');
@@ -196,6 +203,7 @@ if (isset($_GET['act']) && $_GET['act']) {
             break;
         case 'listbinhluan':
             $listuser =  load_all_binhluan("");
+
             require_once('binhluan/listbl.php');
             break;
         case 'xoabl':
@@ -216,51 +224,55 @@ if (isset($_GET['act']) && $_GET['act']) {
                 if ($selectTime == "years") {
                     $time = "Năm";
                     $thongke = thongke_doanhthu_nam();
-                    
                 } elseif ($selectTime == "month") {
                     $time = "Tháng";
                     $thongke = thongke_doanhthu();
                 } elseif ($selectTime == "365day") {
                     $currentDate = date("Y-m-d");
-                    
+
                     $previousDate = date("Y-m-d", strtotime($currentDate . " -365 days"));
                     $time = "365 ngày";
-                    $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
-                }
-                 elseif ($selectTime == "28day") {
+                    $thongke = thongke_doanhthu_subday_now($previousDate, $currentDate);
+                } elseif ($selectTime == "28day") {
                     $currentDate = date("Y-m-d");
-                   
+
                     $previousDate = date("Y-m-d", strtotime($currentDate . " -28 days"));
                     $time = "28 ngày";
-                    $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
-                }
-                 elseif ($selectTime == "7day") {
+                    $thongke = thongke_doanhthu_subday_now($previousDate, $currentDate);
+                } elseif ($selectTime == "7day") {
                     $currentDate = date("Y-m-d");
-                    
+
                     // Tính toán ngày 365 ngày trước
                     $previousDate = date("Y-m-d", strtotime($currentDate . " -7 days"));
                     $time = "7 ngày";
-                    $thongke = thongke_doanhthu_subday_now($previousDate,$currentDate);
+                    $thongke = thongke_doanhthu_subday_now($previousDate, $currentDate);
                 }
                 $selected = "selected";
                 require_once "thongke/thongkedoanhthu.php";
                 break;
             }
-            
+
             $time = "Tháng";
             $thongke = thongke_doanhthu();
             require_once "thongke/thongkedoanhthu.php";
             break;
 
             //------------------------------------------------------------------
+
         case 'listbill':
+
             $listbill = select_all_bill();
+            $cancelbill = select_all_bill_cancel();
             require_once "bill/listbill.php";
             break;
+
         case 'updateBill':
+
             if (isset($_GET['id'])) {
                 $id_donhang =  $_GET['id'];
                 $onebill = select_one_bill($id_donhang);
+
+                $billpro = select_all_sp_bill($id_donhang);
             }
             require_once "bill/updatebill.php";
             break;
@@ -269,24 +281,47 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $id_donhang =  $_POST['id_donhang'];
                 $status = $_POST['status'];
                 update_status_bill($id_donhang, $status);
+                $billpro = select_all_sp_bill($id_donhang);
+
+                // function update_soluong_sanpham($quantity , $id){
+                //     $sql = "UPDATE `chitiet_book` SET `soluong`=`soluong`- $quantity WHERE id_chitiet_book = $id";
+                //     pdo_execute($sql);
+                // }Slime Living Together
+
+                if ($status >= 3) {
+                    foreach ($billpro as $pro) { // chi tiet {soluong , id_book}
+                        
+                        $chitietbook = select_id_chitiet_sanpham($pro['id_book']);
+
+                        update_soluong_sanpham($pro['soluong'] , $chitietbook['id_chitiet_book']);
+                    }
+                }
             }
             header('Location:index.php?act=listbill');
             break;
         case 'voucher':
+            $listvchh = vouchers_hethan();
+
             $listvc = select_voucher();
             include_once('voucher/listvoucher.php');
+            break;
+        case 'xoavoucher':
+            $id = $_GET['id'];
+            xoa_voucher($id);
+            header("Location: index.php?act=voucher");
             break;
         case 'addvoucher':
             if (isset($_POST['addvoucher'])) {
                 $mavoucher = $_POST['name_voucher'];
-                $loai = $_POST['type_voucher'];
+                $ngayhethan = $_POST['ngayhethan'];
                 $giamgia = $_POST['giamgia'];
                 $soluong = $_POST['quantity_voucher'];
-                insert_voucher($mavoucher, $loai, $giamgia, $soluong);
+                insert_voucher($mavoucher,  $giamgia, $soluong , $ngayhethan);
                 header("Location:index.php?act=voucher");
             }
             include_once('voucher/addvoucher.php');
             break;
+        
         default:
             include_once('home.php');
             break;

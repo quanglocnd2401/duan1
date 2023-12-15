@@ -33,9 +33,9 @@
                 <div class="d-inline-flex align-items-center">
                     <a class="text-dark" href="">FAQs</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Help</a>
+                    <a class="text-dark" href="">Trợ giúp</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Support</a>
+                    <a class="text-dark" href="">Hỗ trợ</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -70,7 +70,7 @@
                 <!-- Đoạn mã HTML của bạn -->
                 <form id="searchForm" action="index.php?act=shop" method="POST">
                     <div class="input-group">
-                        <input id="searchInput" type="text" class="form-control" name="search" placeholder="Search for products">
+                        <input id="searchInput" type="text" class="form-control" name="search" placeholder="Tìm kiếm sản phẩm">
                         <div class="input-group-append">
                             <span id="searchIcon" class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -107,8 +107,9 @@
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="index.php?act=userManager&id=<?=
-                                                                                    (isset($_SESSION['user'])) ? $_SESSION['user']['id_user'] : "" ?>">user</a>
-                        <a class="dropdown-item" href="index.php?act=listdonhang">đơn hàng</a>
+                                                                                    (isset($_SESSION['user'])) ? $_SESSION['user']['id_user'] : "" ?>">User</a>
+                        <a class="dropdown-item" href="index.php?act=listdonhang">Đơn hàng</a>
+                        <a class="dropdown-item" href="index.php?act=listvoucher">Voucher</a>
                         <?php if (isset($_SESSION['loged'])) : ?>
                             <a class="dropdown-item" href="index.php?act=dangxuat">Đăng xuất</a>
 

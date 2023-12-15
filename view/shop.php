@@ -1,4 +1,19 @@
+<style>
+    .card-header img {
+    object-fit: cover; /* hoặc 'contain' tùy thuộc vào ý muốn */
+    width: 100%;
+    height: 100%;
+}
+.card-header {
+    max-height: 300px; /* hoặc bất kỳ giá trị nào khác phù hợp */
+    overflow: hidden;
+}
 
+.card-header img {
+    width: 100%;
+    height: auto;
+}
+</style>
 <!-- Shop Start -->
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
@@ -23,27 +38,27 @@
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input name="price[]" value="0-100" type="checkbox" class="custom-control-input" id="price-1">
-                            <label  class="custom-control-label" for="price-1">$0 - $100</label>
+                            <input name="price[]" value="0-100000" type="checkbox" class="custom-control-input" id="price-1">
+                            <label  class="custom-control-label" for="price-1">0 - 100.000</label>
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input name="price[]" value="100-200" type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">$100 - $200</label>
+                            <input name="price[]" value="100000-200000" type="checkbox" class="custom-control-input" id="price-2">
+                            <label class="custom-control-label" for="price-2">100.000 - 200.000</label>
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input name="price[]" value="200-300" type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">$200 - $300</label>
+                            <input name="price[]" value="200000-300000" type="checkbox" class="custom-control-input" id="price-3">
+                            <label class="custom-control-label" for="price-3">200.000 - 300.000</label>
                             
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input name="price[]" value="300-400" type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">$300 - $400</label>
+                            <input name="price[]" value="300000-400000" type="checkbox" class="custom-control-input" id="price-4">
+                            <label class="custom-control-label" for="price-4">300.000 - 400.000</label>
                         </div>
                         <div  class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input name="price[]" value="400-500" type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">$400 - $500</label>
+                            <input name="price[]" value="400000-500000" type="checkbox" class="custom-control-input" id="price-5">
+                            <label class="custom-control-label" for="price-5">400.000 - 500.000</label>
                         </div>
 
                         <input type="submit" name="filter" value="Tìm">
@@ -70,13 +85,13 @@
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3"><?= $tieude ?></h6>
                                 <div class="d-flex justify-content-center">
-                                    <h6><?= number_format($price) ?></h6>
-                                    <h6 class="text-muted ml-2"><del>123.00</del></h6>
+                                    <h6><?= number_format($price) ?> đ </h6>
+                                   
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="index.php?act=sanphamct&id=<?= $id_book ?>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                <a href="index.php?act=sanphamct&id=<?= $id_book ?>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Chi tiết</a>
+                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ</a>
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,4 @@
+
 <div class="container mt-5">
         <h2>Đơn Hàng</h2>
         <table class="table table-bordered">
@@ -16,6 +17,7 @@
     foreach ($listdonhang as $dh) {
         extract($dh);
         $bill_detail = "index.php?act=bill_detail&id=".$id_donhang;
+        $huy_donhang = "index.php?act=huydonhang&id=".$id_donhang;
         $i++;
         $trangthai = [
             "0" => "Chưa xác nhận",
@@ -52,6 +54,12 @@
             <td><?= $total_donhang ?></td>
             <td><span class="<?= $badgeClass ?>"><?= $trangthai[$status] ?></span></td>
             <td><a href="<?= $bill_detail ?>">Chi tiết</a></td>
+            <?php if($status==0){
+            ?>
+            <td><a class="text-danger" href="<?= $huy_donhang ?>"> Hủy </a></td>
+            <?php
+            } ?>
+            
         </tr>
 <?php
     }

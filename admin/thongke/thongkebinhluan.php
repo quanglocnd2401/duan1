@@ -18,7 +18,7 @@ const data = google.visualization.arrayToDataTable([
     foreach ($listthongke as $tk) {
         extract($tk);
         echo '
-        ["'.$name.'",'.$countbl.'],
+        ["'.$ten_theloai.'",'.$countbl.'],
     ';
     }
     ?>

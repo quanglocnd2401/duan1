@@ -43,11 +43,13 @@
         <label for="product_name">id</label>
         <input type="text" name="id"  value="<?= $id_theloai; ?>" required> <br>
 
-        <label for="name">Ten</label>
+        <label for="name">Tên</label>
         <input type="text"  name="name"  value="<?= $name; ?>" required> <br>
 
         <label for="name">Ảnh</label> <br>
-        <img width="100px" src="../img/<?= $img; ?>" alt="">
+        <?php echo $imgtheloai ?>
+        <img width="100px" src="../img/<?= $imgtheloai; ?>" alt="">
+
         <input type="file"  name="imgtheloai"> <br>
         
         <input name="update" type="submit">

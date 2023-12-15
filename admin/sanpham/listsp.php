@@ -5,7 +5,7 @@
             <div class="search">
                 <form action="" method="GET">
                     <label>
-                        <input type="hidden" name="act" value="listsearch">
+                        <input type="hidden" name="act" value="listsearchsp">
                         <input name="kyw" type="text" placeholder="Search">
                         <input type="submit" name="search" value="Tìm">
                         <ion-icon name="search-outline"></ion-icon>
@@ -35,7 +35,7 @@
                     <td>Chức năng</td>
                 </tr>
             </thead>
-
+           
             <tbody>
       
                 <?php foreach ($listsp as $sp) {
@@ -46,13 +46,13 @@
                     echo '
                             <tr>
                             <td>' . $id_book . '</td>
-                            <td>' . $tieude . '</td>
+                            <td><strong>' . $tieude . '</strong></td>
                             <td>' . $anh . '</td>
                             <td>' . $name_author . '</td>
                             
                             <td>' . $name . '</td>
                             <td>' . $ngayxuatban . '</td>
-                            <td>' . $price . '</td>
+                            <td><strong>' .number_format($price ) . '</strong></td>
                             <td>' . $soluong . '</td>
                             <td><a class="btn-admin" href="' . $xoasp . '">Xóa</a><a class="btn-admin" href="' . $suasp . '">Sửa</a>
                                 

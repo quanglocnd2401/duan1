@@ -21,22 +21,21 @@ if (isset($_GET['act']) && $_GET['act']) {
             include_once("view/user.php");
             break;
         case 'updateUser':
-            if(isset($_POST['fullname'])){
+            if (isset($_POST['fullname'])) {
                 $id_user = $_POST['id_user'];
                 $fullname = $_POST['fullname'];
                 $tel = $_POST['telephone'];
                 $address = $_POST['address'];
-               
-                update_user($id_user , $fullname , $address , $tel);
 
+                update_user($id_user, $fullname, $address, $tel);
             }
-            
-            header("Location: index.php?act=userManager&id=".$_SESSION['user']['id_user']);
+
+            header("Location: index.php?act=userManager&id=" . $_SESSION['user']['id_user']);
             break;
         case 'login':
 
             if (isset($_POST['dangnhap']) && $_POST['dangnhap']) {
-                
+
                 $username = $_POST['username_login'];
                 $password = $_POST['password_login'];
                 $user = check_login($username, $password);
@@ -57,89 +56,85 @@ if (isset($_GET['act']) && $_GET['act']) {
             break;
 
         case 'register':
-            
+
             if (isset($_POST['dangki']) && $_POST['dangki']) {
                 //validate user
-              
-                if(empty($_POST['username'])){
+
+                if (empty($_POST['username'])) {
                     $nameErr = "* Yêu cầu nhập Username";
-                }elseif(strlen(test_input($_POST['username'])) < 6){
-                    $nameErr = "* Nhập ít nhất 6 kí tự";     
-                }
-                elseif(check_username($_POST['username']) === false){
+                } elseif (strlen(test_input($_POST['username'])) < 6) {
+                    $nameErr = "* Nhập ít nhất 6 kí tự";
+                } elseif (check_username($_POST['username']) === false) {
                     $nameErr = "* Tên đăng nhập đã được sử dụng";
-                }
-                else{
+                } else {
                     $username = test_input($_POST['username']);
                 }
 
                 // validate pass
-                if(empty($_POST['pass1'])){
+                if (empty($_POST['pass1'])) {
                     $pass1Err = "*Yêu cầu nhập Password";
-                }
-                elseif(strlen(test_input($_POST['pass1'])) < 6){
-                    $pass1Err = "* Nhập ít nhất 6 kí tự";     
-                }
-                else{
-                    $pass1 = test_input($_POST['pass1']) ;
+                } elseif (strlen(test_input($_POST['pass1'])) < 6) {
+                    $pass1Err = "* Nhập ít nhất 6 kí tự";
+                } else {
+                    $pass1 = test_input($_POST['pass1']);
                 }
 
 
-                if(empty($_POST['pass2'])){
+                if (empty($_POST['pass2'])) {
                     $pass2Err = "* Yêu cầu nhập Password";
-                }
-                elseif(strlen(test_input($_POST['pass2'])) < 6){
-                    $pass2Err = "* Nhập ít nhất 6 kí tự";     
-                }
-                else{
-                    $pass2 = test_input($_POST['pass2']) ;
-                    if($pass2 != $pass1){
+                } elseif (strlen(test_input($_POST['pass2'])) < 6) {
+                    $pass2Err = "* Nhập ít nhất 6 kí tự";
+                } else {
+                    $pass2 = test_input($_POST['pass2']);
+                    if ($pass2 != $pass1) {
                         $pass2Err = "* Mật khẩu phải giống nhau";
                     }
-                }   
+                }
 
-                
+
                 // validate email
-                if(empty($_POST['email'])){
+                if (empty($_POST['email'])) {
                     $emailErr = "* Yêu cầu nhập email";
-                }elseif(!filter_var(test_input($_POST['email']), FILTER_VALIDATE_EMAIL)){
+                } elseif (!filter_var(test_input($_POST['email']), FILTER_VALIDATE_EMAIL)) {
                     $emailErr = "* Email không hợp lệ";
-                }
-                else{
-                    $email = test_input($_POST['email']) ;
+                } else {
+                    $email = test_input($_POST['email']);
                 }
 
-                if(! (isset($nameErr) && isset($pass1Err) && isset($pass2Err) && isset($emailErr) ) ){
-                   dang_ki($username , $pass1, $email);
+                if (!(isset($nameErr) && isset($pass1Err) && isset($pass2Err) && isset($emailErr))) {
+                    dang_ki($username, $pass1, $email);
                 }
-            
             }
             include_once("view/register.php");
             break;
-
+        case 'recoverPassword':
+            include_once("view/forgot.php");
+            break;
+        case 'send':
+            $email = $_POST['email'];
+            $pass = password_user($email);
+            extract($pass);
+            include_once("view/send.php");
+            break;
         case 'shop':
 
             if (isset($_POST['filter']) && $_POST['filter']) {
 
                 $gia = isset($_POST['price']) ? $_POST['price'] : []; // $_POST['price] Là 1 mảng gồm các khoảng giá
-                print_r($gia);
-                
-                $per_page = 6;  
+              
+
+                $per_page = 6;
                 $num = soluong_sanpham();
                 $max_page = ceil($num / $per_page);
                 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
                 $start = ($page - 1) * $per_page;
 
                 $sanphams =  load_sanpham_khoang_gia("", "", $gia);
-            } 
-            
-            else if (isset($_GET['idtheloai']) && $_GET['idtheloai'] > 0) {
+            } else if (isset($_GET['idtheloai']) && $_GET['idtheloai'] > 0) {
 
                 $id_theloai = $_GET['idtheloai'];
                 $sanphams = load_all_sanpham("", "", $id_theloai);
-            } 
-            
-            else {
+            } else {
                 $per_page = 6;
                 $num = soluong_sanpham();
                 $max_page = ceil($num / $per_page);
@@ -149,11 +144,11 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $sanphams = load_all_sanpham($start, $per_page, "");
             }
 
-            if(isset($_POST['search'])){
+            if (isset($_POST['search'])) {
                 $sanphams = load_sanpham_search($_POST['search']);
             }
-           
-            
+
+
 
             include_once("view/shop.php");
             break;
@@ -188,7 +183,7 @@ if (isset($_GET['act']) && $_GET['act']) {
             }
             include_once('view/cart.php');
             break;
-        
+
         case 'submitCart':
             if (isset($_POST['submitCart'])) {
                 $id_user = $_POST['id_user'];
@@ -205,14 +200,13 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $dataDb = loadone_sanphamCart($idList);
             }
 
-            if(isset($_POST['submit_voucher'])) {
+            if (isset($_POST['submit_voucher'])) {
                 $enteredVoucher = $_POST['name_voucher'];
                 // Thực hiện kiểm tra mã giảm giá
-                if(checkVoucher($enteredVoucher)) {
+                if (checkVoucher($enteredVoucher)) {
                     // Áp dụng giảm giá
-                    $discount = calculateDiscount($enteredVoucher,$_SESSION['totalcart']);
+                    $discount = calculateDiscount($enteredVoucher, $_SESSION['totalcart']);
                     $_SESSION['totalcart'] -= $discount;
-
                 } else {
                     $thongbao = "không hợp lệ";
                 }
@@ -230,7 +224,7 @@ if (isset($_GET['act']) && $_GET['act']) {
                 $id_bill = get_idbill();
             }
             include_once("view/bill.php");
-           unset($_SESSION['cart']);
+            unset($_SESSION['cart']);
             break;
         case 'listdonhang':
             $id = $_SESSION['user']['id_user'];
@@ -238,14 +232,21 @@ if (isset($_GET['act']) && $_GET['act']) {
 
             include_once('view/listdonhang.php');
             break;
+        case 'huydonhang':
+            delete_bill($_GET['id']);
+    
+            break;
         case 'bill_detail':
             if (isset($_GET['id']) && $_GET['id'] > 0) {
-                $id_donhang = $_GET['id'];  
+                $id_donhang = $_GET['id'];
                 $onebill = select_one_bill($id_donhang);
                 $listsp = select_all_sp_bill($id_donhang);
             }
             include_once('view/chitietdonhang.php');
             break;
+        case 'listvoucher':
+            $listvoucher = select_voucher();
+            include_once('view/listvoucher.php');
         default:
             $per_page = 8;
             $num = soluong_sanpham();
@@ -263,7 +264,7 @@ if (isset($_GET['act']) && $_GET['act']) {
     $max_page = ceil($num / $per_page);
     $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
     $start = ($page - 1) * $per_page;
-    $listspnew = load_new_sanpham();
+    $listspnew = load_new_4sanpham();
     $listsp = load_all_sanpham($start, $per_page, "");
     include("view/home.php");
 }

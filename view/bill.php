@@ -24,4 +24,20 @@ if(!empty($_SESSION['cart'])){
 }
 
 ?>
-<h2>Đặt hàng thành công</h2>
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body text-center">
+          <h2 class="card-title">Đặt hàng thành công!</h2>
+          <p class="card-text">Cảm ơn bạn đã mua sắm của chúng tôi. Đơn hàng của bạn đã được xác nhận.</p>
+
+          <!-- Hiển thị thông tin đơn hàng -->
+          <a href="index.php" class="btn btn-primary mt-3">Quay lại trang chủ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

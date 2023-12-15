@@ -1,12 +1,14 @@
 <?php 
 
-function insert_voucher($mavoucher , $loai , $giamgia , $soluong){
-    $sql = "INSERT INTO `voucher` ( `ma_voucher`, `loai_voucher`, `giamgia`, `soluong`) VALUES ( '$mavoucher', '$loai', '$giamgia', '$soluong')";
+function insert_voucher($mavoucher , $giamgia , $soluong ,$date){
+    $sql = "INSERT INTO `voucher` ( `ma_voucher`,  `giamgia`, `soluong`,`date`) 
+    VALUES ( '$mavoucher',  '$giamgia', '$soluong','$date')";
     pdo_execute($sql);
 }
 
 function select_voucher(){
-    $sql = "SELECT * FROM `voucher` WHERE 1";
+    $currentDate = date('Y-m-d');
+    $sql = "SELECT * FROM `voucher` WHERE date > '$currentDate'";
     $list = pdo_query($sql);
     return $list;
 }
@@ -26,6 +28,22 @@ function calculateDiscount($code,$total) {
     $voucher = pdo_query_one($sql);
     $giam = ($voucher['giamgia']/100)*$total;
     return $giam;
+}
+
+function vouchers_hethan() {
+    $currentDate = date('Y-m-d');
+    $sql = "SELECT * FROM voucher WHERE date < '$currentDate' and huy = 0";
+    
+    $list = pdo_query($sql);
+    return $list;
+    // Thực hiện truy vấn SQL và trả về danh sách voucher đã hết hạn
+}
+
+function xoa_voucher($id_voucher) {
+    // Ví dụ: cập nhật trạng thái của voucher thành hủy
+    $sql = "UPDATE voucher SET huy = 1 WHERE id_voucher = $id_voucher";
+    pdo_execute($sql);
+    // Thực hiện truy vấn SQL để cập nhật trạng thái voucher
 }
 
 

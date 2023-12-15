@@ -1,7 +1,27 @@
 <!-- Page Header End -->
 <?php
 if (empty($dataDb)) {
-    echo '<h1>Chưa có sản phẩm nào trong giỏ hàng </h1>';
+?>
+    <div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <!-- Giỏ hàng -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Thông báo khi giỏ hàng trống -->
+          <div class="alert alert-info empty-cart-message" role="alert">
+             Chưa có sản phẩm trong giỏ hàng. <a href="index.php">Quay lại cửa hàng</a> để thêm sản phẩm.
+          </div>
+
+          <!-- Nội dung giỏ hàng -->
+          <!-- Bạn có thể thêm sản phẩm vào đây -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php
 } else {
 ?>
     <div id="order" class="container-fluid pt-5">

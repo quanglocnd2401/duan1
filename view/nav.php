@@ -41,17 +41,17 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.php" class="nav-item nav-link active">Home</a>
-                        <a href="index.php?act=shop" class="nav-item nav-link">Shop</a>
-                        <a href="index.php?act=shopdetail" class="nav-item nav-link">Shop Detail</a>
+                        <a href="index.php" class="nav-item nav-link active">Trang chủ</a>
+                        <a href="index.php?act=shop" class="nav-item nav-link">Cửa Hàng</a>
+                        <a href="index.php?act=shopdetail" class="nav-item nav-link">Chi tiết</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                                <a href="cart.html" class="dropdown-item">Giỏ hàng</a>
                                 <a href="checkout.html" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
                     </div>
                     <?php
                     if (isset($_SESSION['loged'])) {
@@ -86,8 +86,8 @@
                         <img class="img-fluid" src="img/banner1.jpg" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
-                                <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
+                                <h4 class="text-light text-uppercase font-weight-medium mb-3">Giảm 10% cho sản phẩm đầu tiên tại</h4>
+                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashasa Book</h3>
                                 <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                         <img class="img-fluid" src="img/banner2.jpg" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
-                                <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                                <h4 class="text-light text-uppercase font-weight-medium mb-3">Giảm 10% cho sản phẩm đầu tiên</h4>
                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
                                 <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
                             </div>

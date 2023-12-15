@@ -1,37 +1,48 @@
 <style>
-.addtheloai {
-  display: flex; /* Hiển thị các phần tử con theo chiều ngang */
-  flex-direction: column; /* Xếp các phần tử con theo chiều dọc */
-  max-width: 300px; /* Đặt chiều rộng tối đa cho form */
-}
+  .form_update {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-/* Áp dụng cho label trong form */
-.addtheloai label {
-  margin-bottom: 5px; /* Khoảng cách giữa label và input */
-}
+    .form_update label {
+        display: block;
+        margin-top: 10px;
+    }
 
-/* Áp dụng cho input trong form */
-.addtheloai input {
-  margin-bottom: 10px; /* Khoảng cách giữa các input */
-  padding: 5px; /* Khoảng cách nội dung từ viền ngoài */
-}
+    .form_update input,
+    .form_update img {
+      height: 30px;
+        width: 100%;
+        margin-top: 5px;
+        box-sizing: border-box;
+    }
 
-/* Áp dụng cho input submit trong form */
-.addtheloai input[type="submit"] {
-  background-color: #4CAF50; /* Màu nền cho nút submit */
-  color: white; /* Màu chữ trắng */
-  cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút submit */
-}
+    .form_update input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form_update input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
 </style>
 <div class="details">
-    <div class="recentOrders">
-        <form class="addtheloai" action="index.php?act=addtheloai" method="POST" enctype="multipart/form-data">
+    
+        <form class="form_update" action="index.php?act=addtheloai" method="POST" enctype="multipart/form-data">
             <label for="addtheloai">Tên Thể loại</label>
             <input type="text" name="addtheloai" required>
             <label for="addtheloai">Ảnh</label>
             <input type="file" name="img" required>
             <input value="Thêm" name="add" type="submit">
         </form>
-    </div>
+   
 
 </div>

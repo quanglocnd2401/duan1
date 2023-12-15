@@ -34,17 +34,20 @@ function add_danhmuc($name,$img){
     pdo_execute($sql);
 }
 
-function uppdate_danhmuc($id,$name,$img){
-    $sql = "UPDATE `theloai` SET `name` = '$name',`img` = '$img' WHERE `theloai`.`id_theloai` = $id";
+function update_danhmuc($id,$name,$img){
+
+    $sql = "UPDATE `theloai` SET `name` = '$name',`imgtheloai` = '$img' WHERE `theloai`.`id_theloai` = $id";
     pdo_execute($sql);
 }
+
+
 function soluong_theloai(){
     $sql = "SELECT * FROM `theloai` WHERE 1";
     $total =   nums_row($sql);
     return $total;   
 }
-function search_item($name,$kyw){
-    $sql = "SELECT * FROM `".$name."` WHERE name like '%".$kyw."%'";
+function search_item($table,$name,$kyw){
+    $sql = "SELECT * FROM `".$table."` WHERE ".$name." like '%".$kyw."%'";
     $listsearch = pdo_query($sql);
     return $listsearch;
 }

@@ -27,7 +27,7 @@
                 <tr>
                     <td>ID</td>
                     <td>username</td>
-                    <td>password</td>
+                  
                     <td>email</td>
                     <td>fullname</td>
                     <td>address</td>
@@ -62,7 +62,7 @@
                             <tr>
                             <td>' . $id . '</td>
                             <td>' . $username . '</td>
-                            <td>' . $password . '</td>
+                          
                             <td>' . $email . '</td>
                             <td>' . $fullname . '</td>
                             <td>' . $address . '</td>

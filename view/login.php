@@ -22,7 +22,7 @@
     ?>
 
     <h2>Đăng Nhập</h2>
-    <form action="index.php?act=login" method="post">
+    <form  action="index.php?act=login" method="post">
 
         <div class="form-group">
             <label for="username">Tên người dùng:</label>
@@ -34,7 +34,8 @@
             <input type="password" class="form-control" id="password" name="password_login" required>
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Đăng nhập" name="dangnhap">
+        <input type="submit" class="btn btn-primary" value="Đăng nhập" name="dangnhap"> <br>
+        <a href="index.php?act=recoverPassword">Quên mật khẩu</a>
     </form>
 </div>
     

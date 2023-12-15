@@ -61,5 +61,9 @@ function check_username($username){
     }
 }
 
-
+function password_user($email){
+    $sql = "SELECT password FROM `user` WHERE email = '$email'";
+    $pass = pdo_query_one($sql);
+    return $pass;
+}
 ?>
